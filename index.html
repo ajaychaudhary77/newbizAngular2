@@ -1,0 +1,169 @@
+<html>
+    <head>
+        <title>Angular 2 Quickstart</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <script src="node_modules/es6-shim/es6-shim.min.js"></script>
+        <script src="node_modules/systemjs/dist/system-polyfills.js"></script>
+        <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
+        <script src="node_modules/systemjs/dist/system.src.js"></script>
+        <script src="node_modules/rxjs/bundles/RX.js"></script>
+        <script src="node_modules/angular2/bundles/http.dev.js"></script>
+        <script src="node_modules/angular2/bundles/router.dev.js"></script>
+        <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        <!--<link href="css/normalize.css" rel="stylesheet" />
+        <link href="css/site.css" rel="stylesheet" />-->
+
+        <!--ALL KENDO UI dependencies-->
+        <link href="css/kendo/2016.1.112/kendo.common.min.css" rel="stylesheet" type="text/css" />
+        <link href="css/kendo/2016.1.112/kendo.mobile.all.min.css" rel="stylesheet" type="text/css" />
+        <link href="css/kendo/2016.1.112/kendo.dataviz.min.css" rel="stylesheet" type="text/css" />
+        <link href="css/kendo/2016.1.112/kendo.default.min.css" rel="stylesheet" type="text/css" />
+        <link href="css/kendo/2016.1.112/kendo.dataviz.default.min.css" rel="stylesheet" type="text/css" />
+        <script src="Scripts/kendo/2016.1.112/jquery.min.js"></script>
+        <script src="Scripts/kendo/2016.1.112/jszip.min.js"></script>
+        <script src="Scripts/kendo/2016.1.112/kendo.all.min.js"></script>
+
+        <script>
+
+          System.config({
+            packages:{
+              app:{
+                format: 'register',
+                defaultExtension : 'js'
+              }
+            }
+          });
+          System.import('app/boot')
+            .then(null, console.error.bind(console));
+      </script>
+
+    </head>
+    <body>
+      <my-app>Loading...</my-app>
+      <div id="grid"></div>
+    </body>
+    <script>
+
+        function getBusType(string){
+            
+
+        } 
+
+        $("#grid").kendoGrid({
+                        dataSource: {
+                            type: "json",
+                            transport: {
+                                read: function (options) {
+                                        $.ajax({
+                                            url: "http://168.63.106.203:8080/customerList",
+                                            dataType: "json",
+                                            success: function (result) {
+                                                options.success(result);
+                                            }
+                                        });
+                                    },
+                            },
+                            pageSize: 10,
+                        },
+                        pageable: {
+                            buttonCount: 10
+                        },
+                        schema: {
+                            model: {
+                                fields: {
+                                    companyId: { type: "number"},
+                                    customerId: { type: "number" },
+                                    name: { type: "string" },
+                                    branchOfficeId: { type: "number" },
+                                    cmpActive: { type: "number" },
+                                    brnActive: { type: "number" },
+                                    branchOfficeNumber: { type: "number" },
+                                    signBoardName: { type: "string" },
+                                    businessTypeId: { type: "number" },
+                                    street: { type: "string" },
+                                    streetNumber: { type: "string" },
+                                    city: { type: "string" },
+                                    province: { type: "string" },
+                                    zipCode: { type: "string" },
+                                    email: { type: "string" },
+                                    branchOfficeType: { type: "string" },
+                                    vatNumber: { type: "string" },
+                                    taxCode: { type: "string" },
+                                    ownerId: { type: "number" },
+                                    name: { type: "string" },
+                                    lastname: { type: "string" },
+                                    mobileNumber: { type: "string" },
+                                }
+                            }
+                        },
+                        scrollable: {
+                            virtual: true
+                        },
+                        resizable: true,
+                        height: 700,
+                        groupable: true,
+                        sortable: true,
+                        editable: true,
+                        columns: [{
+                            field: "customerId",
+                            title: "Az.",
+                            width: 55
+                        },{
+                            field: "branchOfficeId",
+                            title: "Id",
+                            width: 55
+                        },{
+                            field: "branchOfficeType",
+                            title: "Tipo",
+                            width: 65
+                        },{
+                            field: "name",
+                            title: "Cliente",
+                        },{
+                            field: "signBoardName",
+                            title: "Insegna",
+                        },{
+                            field: "businessType[0].businessTypeId",
+                            title: "Attività",
+                        },{
+                            field: "address.street",
+                            title: "Via",
+                        },{
+                            field: "address.streetNumber",
+                            title: "n°",
+                            width: 55
+                        },{
+                            field: "address.city",
+                            title: "Città",
+                        },{
+                            field: "address.province",
+                            title: "Pr.",
+                            width: 50
+                        },{
+                            field: "address.zipCode",
+                            title: "CAP",
+                            width: 65
+                        },{
+                            field: "email[0]",
+                            title: "Email",
+                        },{
+                            field: "vatNumber",
+                            title: "P.I.",
+                            width: 110
+                        },{
+                            field: "owner[0].name",
+                            title: "Nome tit.",
+                        },{
+                            field: "owner[0].lastname",
+                            title: "Cogn. tit.",
+                        },{
+                            field: "owner[0].mobileNumber[0]",
+                            title: "Cell.",
+                        }
+                        ]
+                    });
+        </script>
+
+</html>
